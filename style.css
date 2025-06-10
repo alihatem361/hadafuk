@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border: 1px solid red !important;
 }
 
 :root {
@@ -20,136 +21,517 @@ body {
 }
 
 .hero {
-  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
-  padding: 20px;
+  background: none;
 }
 
 .hero-background {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .hero-content {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  max-width: 1200px; /* Adjust as needed */
-  padding: 0 40px;
-  gap: 40px;
+  width: 90vw;
+  max-width: 1400px;
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }
 
 .text-content {
-  flex: 1;
-  text-align: right;
+  position: relative;
+  max-width: 600px;
   color: var(--text-dark);
-  z-index: 1;
+}
+
+.text-content .underline-image {
+  top: 84px;
+  left: 15%;
+  position: absolute;
+}
+
+.text-content .arrow-decor {
+  position: absolute;
+  top: 50px;
+  left: 0;
 }
 
 .headline {
-  font-size: 3.5em;
+  font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 10px;
-  line-height: 1.2;
+  margin: 0 0 1rem 0;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  gap: 0.5rem;
   position: relative;
 }
 
 .headline .regular {
+  color: var(--text-dark);
   font-weight: 400;
-  color: var(--primary-color);
 }
 
 .headline .highlight {
-  color: var(--primary-color);
-  position: relative;
-  display: inline-block;
+  color: #f45a0a;
   font-weight: 700;
+  margin-right: 0.5rem;
+  position: relative;
 }
 
-.headline img.logo {
+.logo {
   position: absolute;
-  bottom: -15px;
   right: 0;
-  width: 100%;
-  max-width: 250px; /* Adjust based on your SVG size */
+  bottom: -10px;
+  width: 120px;
+  z-index: 3;
 }
 
 .arrow-decor {
-  position: absolute;
-  top: -20px; /* Adjust as needed */
-  right: 150px; /* Adjust as needed */
-  width: 100px; /* Adjust as needed */
-  transform: rotate(180deg);
+  margin: 1rem 0;
+  width: 80px;
 }
 
 .subheadline {
-  font-size: 1.5em;
+  font-size: 1.5rem;
   color: var(--text-gray);
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
+  width: 80%;
   line-height: 1.5;
 }
 
 .cta-button {
-  background-color: var(--accent-color);
-  color: var(--white);
-  padding: 15px 30px;
+  background: #f45a0a;
+  color: #fff;
   border: none;
-  border-radius: 30px;
-  font-size: 1.2em;
-  font-weight: 600;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  transition: background 0.2s;
 }
 
 .cta-button:hover {
-  background-color: #e08e0b; /* A slightly darker shade for hover */
+  background: #d94a06;
 }
 
 .image-container {
-  flex: 1;
   position: relative;
+  width: 500px;
+  height: auto;
   display: flex;
+  align-items: flex-end;
   justify-content: center;
-  align-items: center;
-  height: 500px; /* Adjust as needed */
-  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .image-container {
+    width: 80%;
+    height: auto;
+    margin-top: 2rem;
+  }
 }
 
 .blob-shape {
   position: absolute;
+  bottom: 0;
+  right: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--accent-color);
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  transform: rotate(15deg);
-  overflow: hidden;
+  z-index: 1;
 }
 
 .blob-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* This makes sure the blob SVG covers the area */
+  height: auto;
+}
+.instructor-container {
+  width: 100%;
+}
+.instructor-image {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  margin-bottom: 0.5rem;
 }
 
-.instructor-image {
+.main-header {
+  width: 100vw;
+  background: #fff;
+  padding: 0.5rem 0;
+  box-shadow: 0px 4px 29px 0px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 10;
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 2rem;
+}
+
+.header-logo {
+  width: 48px;
+  height: 48px;
+  margin-left: 1rem;
+}
+
+.header-title {
+  color: #f45a0a;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: "Cairo", sans-serif;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0 1rem;
+  }
+  .header-title {
+    font-size: 1.1rem;
+  }
+  .header-logo {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* ==================== Courses Section ==================== */
+.courses {
+  padding: 4rem 0 2rem 0;
+  background: #fff;
+}
+.courses-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.courses-title {
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: url("./images/courses-title-bg.svg") no-repeat center center;
+}
+.courses-subtitle {
+  color: #aaa;
+  font-size: 1.2rem;
+}
+.courses-list {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.course-card {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  position: relative;
+  width: 95%;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.course-card .course-decor {
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: 100%;
-  height: auto;
+  top: 92px;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  right: -441px;
+}
+
+.course-card--reverse .course-decor2 {
+  position: absolute;
+  top: 92px;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  left: -441px;
+}
+.course-info {
+  flex: 1 1 0;
+  padding: 2.2rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.course-info .course-desc {
+  text-align: right;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 180%; /* 36px */
+}
+.course-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+}
+.orange {
+  color: #f45a0a !important;
+}
+.course-details {
+  color: #595c5e;
+  font-size: 1.05rem;
+  margin-bottom: 1.2rem;
+  padding-right: 1.2rem;
+  list-style: disc inside;
+  line-height: 2.1;
+}
+.course-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.course-note {
+  color: #aaa;
+  font-size: 0.95rem;
+  margin-bottom: 1.1rem;
+}
+.course-btn {
+  background: #f45a0a;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 2.2rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  align-self: flex-start;
+  transition: background 0.2s;
+}
+.course-btn:hover {
+  background: #d94a06;
+}
+.course-image-container {
+  position: relative;
+  min-width: 603.76px;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  z-index: 1;
+}
+.image-border {
+  position: absolute;
   z-index: 2;
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 151px;
+  left: -35px;
+}
+
+/* .course-image-container .course-decor {
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+} */
+.course-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.decor-lines {
+  position: absolute;
+  left: 0;
+  bottom: -30px;
+  width: 120%;
+  z-index: 1;
+  pointer-events: none;
+}
+@media (max-width: 1100px) {
+  .courses-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .course-card {
+    max-width: 95vw;
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+  .course-image-container {
+    margin: 0 auto 1.5rem auto;
+    max-width: 90vw;
+  }
+}
+@media (max-width: 700px) {
+  .courses {
+    padding: 2rem 0 1rem 0;
+  }
+  .course-info {
+    padding: 1.2rem 1rem 1rem 1rem;
+  }
+  .course-title {
+    font-size: 1.1rem;
+  }
+  .course-details {
+    font-size: 0.95rem;
+    padding-right: 0.5rem;
+  }
+  .course-image-container {
+    min-width: 160px;
+    max-width: 98vw;
+  }
+  .image-border {
+    width: 98vw;
+    height: 120px;
+    border-width: 3px;
+  }
+  .decor-lines {
+    width: 100vw;
+    left: 0;
+    bottom: -10px;
+  }
+}
+
+/* ==================== Payment Section Custom ==================== */
+.payment-section {
+  background: #fff;
+  padding: 4rem 0 2rem 0;
+  position: relative;
+  z-index: 2;
+}
+.payment-container {
+  width: 95%;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  padding: 2.5rem 2rem 2rem 2rem;
+  position: relative;
+}
+.payment-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.payment-title-badge {
+  color: #fff;
+  font-size: 32px;
+}
+.payment-desc {
+  color: #888;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.payment-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 2.2rem;
+  margin-bottom: 2.2rem;
+  padding-bottom: 0.7rem;
+}
+.payment-tab {
+  color: #343a40;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.2rem 0.7rem;
+  border-bottom: 2.5px solid transparent;
+  transition: color 0.2s, border 0.2s;
+}
+.payment-tab.active {
+  color: #f45a0a;
+  border-bottom: 2.5px solid #f45a0a;
+  font-weight: 700;
+}
+.payment-steps-block {
+  margin: 2.2rem 0 1.5rem 0;
+}
+
+.payment-steps-block .payment-arrow {
+  position: absolute;
+  right: 346px;
+}
+.payment-steps-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 1.1rem;
+}
+.payment-steps-list {
+  color: #343a40;
+  font-size: 1.05rem;
+  margin-bottom: 1.1rem;
+  padding-right: 1.2rem;
+  line-height: 2.1;
+}
+.payment-link {
+  color: #f45a0a;
+  text-decoration: underline;
+  font-weight: 600;
+}
+.payment-note {
+  color: #f45a0a;
+  font-size: 1rem;
+  margin-top: 0.7rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+}
+
+.payment-image-block {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.2rem;
+}
+.payment-sample-img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.08);
+  border: 1.5px solid #eee;
+}
+@media (max-width: 700px) {
+  .payment-container {
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+  .payment-title-badge {
+    font-size: 1.1rem;
+    padding: 0.3rem 1.2rem;
+  }
+  .payment-tabs {
+    gap: 1rem;
+    font-size: 0.95rem;
+  }
+  .payment-steps-title {
+    font-size: 1rem;
+  }
+  .payment-steps-list {
+    font-size: 0.95rem;
+    padding-right: 0.5rem;
+  }
 }
