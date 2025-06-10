@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #00a98f;
+  --accent-color: #f39c12;
+  --text-dark: #343a40;
+  --text-gray: #495057;
+  --bg-light: #f8f9fa;
+  --white: #ffffff;
+}
+
+body {
+  font-family: "Cairo", sans-serif;
+  background-color: var(--bg-light);
+  direction: rtl;
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px; /* Adjust as needed */
+  padding: 0 40px;
+  gap: 40px;
+}
+
+.text-content {
+  flex: 1;
+  text-align: right;
+  color: var(--text-dark);
+  z-index: 1;
+}
+
+.headline {
+  font-size: 3.5em;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+}
+
+.headline .regular {
+  font-weight: 400;
+  color: var(--primary-color);
+}
+
+.headline .highlight {
+  color: var(--primary-color);
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
+}
+
+.headline img.logo {
+  position: absolute;
+  bottom: -15px;
+  right: 0;
+  width: 100%;
+  max-width: 250px; /* Adjust based on your SVG size */
+}
+
+.arrow-decor {
+  position: absolute;
+  top: -20px; /* Adjust as needed */
+  right: 150px; /* Adjust as needed */
+  width: 100px; /* Adjust as needed */
+  transform: rotate(180deg);
+}
+
+.subheadline {
+  font-size: 1.5em;
+  color: var(--text-gray);
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.cta-button {
+  background-color: var(--accent-color);
+  color: var(--white);
+  padding: 15px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.2em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #e08e0b; /* A slightly darker shade for hover */
+}
+
+.image-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px; /* Adjust as needed */
+  z-index: 1;
+}
+
+.blob-shape {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--accent-color);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  transform: rotate(15deg);
+  overflow: hidden;
+}
+
+.blob-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This makes sure the blob SVG covers the area */
+}
+
+.instructor-image {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 100%;
+  height: auto;
+  z-index: 2;
+}
