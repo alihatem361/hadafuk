@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border: 1px solid red !important;
+  /* border: 1px solid red !important; */
 }
 
 :root {
@@ -494,7 +494,7 @@ body {
   font-weight: 600;
 }
 .payment-note {
-  color: #f45a0a;
+  color: #060d11;
   font-size: 1rem;
   margin-top: 0.7rem;
   font-weight: 500;
@@ -511,9 +511,6 @@ body {
 }
 .payment-sample-img {
   max-width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.08);
-  border: 1.5px solid #eee;
 }
 @media (max-width: 700px) {
   .payment-container {
