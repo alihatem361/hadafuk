@@ -4,17 +4,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const mainNav = document.querySelector(".main-nav");
   const menuOverlay = document.querySelector(".menu-overlay");
   const navLinks = document.querySelectorAll(".main-nav .nav-link");
-
   // Toggle menu function
   function toggleMenu() {
     menuToggle.classList.toggle("active");
     mainNav.classList.toggle("active");
     menuOverlay.classList.toggle("active");
 
-    // Toggle body scroll
+    // Add slide animation class
     if (mainNav.classList.contains("active")) {
+      mainNav.classList.add("slide-down");
       document.body.style.overflow = "hidden";
     } else {
+      mainNav.classList.remove("slide-down");
       document.body.style.overflow = "";
     }
   }

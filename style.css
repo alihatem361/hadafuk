@@ -33,6 +33,13 @@ body {
   background: none;
 }
 
+@media (max-width: 768px) {
+  .hero {
+    min-height: auto;
+    padding: 2rem 0;
+  }
+}
+
 .hero-background {
   position: absolute;
   top: 0;

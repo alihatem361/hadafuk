@@ -20,13 +20,13 @@
 
 .menu-overlay {
   position: fixed;
-  top: 0;
+  top: 80px; /* يبدأ من تحت الهيدر */
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 80px); /* يأخذ باقي ارتفاع الشاشة */
   background-color: rgba(0, 0, 0, 0.5);
   display: none;
-  z-index: 1000;
+  z-index: 999;
 }
 
 .menu-overlay.active {
@@ -34,6 +34,11 @@
 }
 
 @media (max-width: 768px) {
+  .main-header {
+    position: relative;
+    z-index: 1000;
+  }
+
   .header-content {
     padding: 0.5rem 1rem;
   }
@@ -50,52 +55,61 @@
   /* Show hamburger menu on mobile */
   .mobile-menu-toggle {
     display: block;
-  }
-  /* Hide the regular nav items */
+  } /* Hide the regular nav items */
   .main-nav {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 70%;
-    height: 100vh;
-    background-color: white;
-    padding-top: 80px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    height: 0;
+    background-color: #f8f9fa;
     flex-direction: column;
     align-items: center;
-    transition: right 0.3s ease;
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     z-index: 1001;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    opacity: 0;
+    border-top: 3px solid #f45a0a;
   }
-
   .main-nav.active {
-    right: 0;
+    height: auto;
+    padding: 1rem 0;
+    opacity: 1;
   }
 
+  .main-nav.slide-down {
+    animation: slideDown 0.3s ease-in-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
   .main-nav a {
-    margin: 1.5rem 0;
+    margin: 0.8rem 0;
     font-size: 1.3rem;
     position: relative;
-    padding: 0.5rem 1rem;
+    padding: 0.7rem 1rem;
     transition: all 0.3s ease;
-  }
-
-  .main-nav a:after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 3px;
-    bottom: 0;
-    right: 0;
-    background-color: #f45a0a;
-    transition: width 0.3s ease;
-  }
-
-  .main-nav a:hover:after {
     width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(244, 90, 10, 0.1);
   }
-  /* Hamburger menu animation */
+
+  .main-nav a:last-child {
+    border-bottom: none;
+  }
+
+  .main-nav a:hover {
+    background-color: rgba(244, 90, 10, 0.05);
+  } /* Hamburger menu animation */
   .mobile-menu-toggle.active .burger-line:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
     background-color: #d94a06;
@@ -113,5 +127,19 @@
 
   .mobile-menu-toggle:hover .burger-line {
     background-color: #ff6b00;
+  }
+
+  /* إضافات لضمان ظهور القائمة بشكل صحيح */
+  .main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-content {
+    position: relative;
   }
 }
