@@ -10,16 +10,23 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mobile.css" />
     <title>منصة هدفك التعليمية</title>
   </head>
 
   <body>
+    <div class="menu-overlay"></div>
     <header class="main-header">
       <div class="header-content">
         <a href="#" class="logo-link">
           <img src="./images/logo.svg" alt="لوجو هدفك" class="header-logo" />
           <span class="header-title">دورات هدفك التعليمية</span>
         </a>
+        <button class="mobile-menu-toggle" aria-label="فتح القائمة">
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+        </button>
         <nav class="main-nav">
           <a href="#courses" class="nav-link">الدورات</a>
           <a href="#payment" class="nav-link">وسائل الدفع</a>
@@ -318,7 +325,11 @@
                 alt="أيقونة تليجرام الزرقاء للتواصل مع منصة هدفك"
               />
               <span>حساب تليجرام للإشراف لإضافة البنين</span>
-              <a href="https://t.me/online_training_hadafak" target="_blank">
+              <a
+                href="https://t.me/online_training_hadafak"
+                target="_blank"
+                rel="noopener"
+              >
                 https://t.me/online_training_hadafak
               </a>
             </li>
@@ -329,7 +340,11 @@
                 alt="أيقونة تليجرام الزرقاء للتواصل مع منصة هدفك"
               />
               <span>حساب تليجرام للإشراف لإضافة البنات</span>
-              <a href="https://t.me/hadafak_online" target="_blank">
+              <a
+                href="https://t.me/hadafak_online"
+                target="_blank"
+                rel="noopener"
+              >
                 https://t.me/hadafak_online
               </a>
             </li>
@@ -344,5 +359,8 @@
       </div>
     </footer>
     <!-- ==================== End Footer Section ==================== -->
+
+    <!-- JavaScript for Mobile Menu -->
+    <script src="menu.js"></script>
   </body>
 </html>

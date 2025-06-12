@@ -1,0 +1,117 @@
+/* Mobile menu styling */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1002;
+}
+
+.burger-line {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #f45a0a;
+  transition: all 0.3s ease;
+  border-radius: 1.5px;
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 1000;
+}
+
+.menu-overlay.active {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0.5rem 1rem;
+  }
+
+  .header-title {
+    font-size: 1.1rem;
+  }
+
+  .header-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Show hamburger menu on mobile */
+  .mobile-menu-toggle {
+    display: block;
+  }
+  /* Hide the regular nav items */
+  .main-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background-color: white;
+    padding-top: 80px;
+    flex-direction: column;
+    align-items: center;
+    transition: right 0.3s ease;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  .main-nav.active {
+    right: 0;
+  }
+
+  .main-nav a {
+    margin: 1.5rem 0;
+    font-size: 1.3rem;
+    position: relative;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .main-nav a:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    right: 0;
+    background-color: #f45a0a;
+    transition: width 0.3s ease;
+  }
+
+  .main-nav a:hover:after {
+    width: 100%;
+  }
+  /* Hamburger menu animation */
+  .mobile-menu-toggle.active .burger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+    background-color: #d94a06;
+  }
+
+  .mobile-menu-toggle.active .burger-line:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+
+  .mobile-menu-toggle.active .burger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+    background-color: #d94a06;
+  }
+
+  .mobile-menu-toggle:hover .burger-line {
+    background-color: #ff6b00;
+  }
+}
