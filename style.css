@@ -105,6 +105,13 @@ body {
   position: absolute;
   top: 50px;
   left: 0;
+  display: none; /* Hide by default */
+}
+
+@media (min-width: 992px) {
+  .text-content .arrow-decor {
+    display: block; /* Show only on large screens */
+  }
 }
 
 .headline {
@@ -452,6 +459,18 @@ body {
   position: relative;
   overflow: hidden;
 }
+
+@media (max-width: 700px) {
+  .course-card-wrapper {
+    margin-bottom: 2rem;
+  }
+
+  .course-info-wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+}
 .course-card {
   display: flex;
   flex-direction: row;
@@ -591,7 +610,7 @@ body {
   }
   .course-card {
     max-width: 95vw;
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: stretch;
   }
   .course-image-container {
@@ -619,7 +638,7 @@ body {
   }
   .image-border {
     width: 100vw;
-    height: 100%;
+    height: 50%;
     border-width: 3px;
     top: 23px;
     left: 0px;
