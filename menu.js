@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Event listeners
-  menuToggle.addEventListener("click", toggleMenu);
+  menuToggle.addEventListener("click", toggleMenu);p
   menuOverlay.addEventListener("click", toggleMenu);
 
   // Close menu when a nav link is clicked
