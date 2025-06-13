@@ -14,6 +14,7 @@
   --text-gray: #495057;
   --bg-light: #f8f9fa;
   --white: #ffffff;
+  --transition-speed: 0.3s;
 }
 
 body {
@@ -21,6 +22,27 @@ body {
   background-color: var(--bg-light);
   direction: rtl;
   padding-top: 80px;
+  transition: background-color var(--transition-speed);
+}
+
+/* Add transitions for elements that change with theme */
+.cta-button,
+.course-btn,
+.payment-tab,
+.footer-section,
+.course-title.orange,
+.course-price.orange,
+.highlight,
+.payment-link,
+.payment-steps-title,
+.payment-note-footer-highlight .highlight {
+  transition: color var(--transition-speed),
+    background-color var(--transition-speed);
+}
+
+/* Ensure SVG transitions */
+.theme-svg {
+  transition: filter var(--transition-speed);
 }
 
 .hero {
