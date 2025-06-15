@@ -8,8 +8,9 @@
 }
 
 :root {
-  --primary-color: #00a98f;
-  --accent-color: #f39c12;
+  --primary-color: #ff6b00;
+  --secondary-color: #00a98f;
+  --accent-color: #f39c12; /* Keep for backward compatibility */
   --text-dark: #343a40;
   --text-gray: #495057;
   --bg-light: #f8f9fa;
@@ -35,15 +36,13 @@ body {
 .highlight,
 .payment-link,
 .payment-steps-title,
-.payment-note-footer-highlight .highlight {
+.payment-note-footer-highlight .highlight,
+.theme-font,
+.theme-font-accent {
   transition: color var(--transition-speed),
     background-color var(--transition-speed);
 }
 
-/* Ensure SVG transitions */
-.theme-svg {
-  transition: filter var(--transition-speed);
-}
 
 .hero {
   position: relative;
@@ -57,7 +56,7 @@ body {
 
 @media (max-width: 768px) {
   .hero {
-    min-height: auto;
+    min-height: 0;
     padding: 2rem 0;
   }
 }
@@ -125,8 +124,8 @@ body {
 
 .text-content .arrow-decor {
   position: absolute;
-  top: 50px;
-  left: 0;
+  top: 64px;
+  left: -38px;
   display: none; /* Hide by default */
 }
 
@@ -188,7 +187,9 @@ body {
 }
 
 .headline .highlight {
-  color: #f45a0a;
+  color: var(
+    --primary-color
+  ); /* Changed from hardcoded color to theme variable */
   font-weight: 700;
   margin-right: 0.5rem;
   position: relative;
@@ -246,8 +247,8 @@ body {
 }
 
 .cta-button {
-  background: #f45a0a;
-  color: #fff;
+  background: var(--secondary-color) !important;
+  color: #fff !important;
   border: none;
   padding: 1rem 2rem;
   font-size: 1.2rem;
@@ -282,9 +283,11 @@ body {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 100%;
-  height: 100%;
+  width: 83%;
+  height: 84%;
   z-index: 1;
+  margin: auto;
+  transform: translate(-46px, 5px);
 }
 
 .blob-image {
@@ -325,7 +328,7 @@ body {
   display: flex;
   gap: 2rem;
   cursor: pointer;
-  color: #f45a0a;
+  color: var(--primary-color);
 }
 .main-nav a {
   font-size: 1.1rem;
@@ -355,7 +358,7 @@ body {
 }
 
 .header-title {
-  color: #f45a0a;
+  color: var(--primary-color);
   font-size: 1.5rem;
   font-weight: 700;
   font-family: "Almarai", sans-serif;
@@ -461,7 +464,7 @@ body {
   margin-bottom: 2.5rem;
 }
 .courses-title {
-  color: #fff;
+  color: #fff !important;
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
@@ -540,7 +543,7 @@ body {
   margin-bottom: 1.2rem;
 }
 .orange {
-  color: #f45a0a !important;
+  color: var(--primary-color) !important;
 }
 .course-details {
   color: #595c5e;
@@ -684,7 +687,7 @@ body {
     margin: 0 auto 1.5rem auto;
     max-width: 90vw;
     min-width: 100%;
-    min-height: auto;
+    min-height: 0;
   }
 }
 @media (max-width: 700px) {
@@ -792,11 +795,12 @@ body {
   margin: 2.2rem 0 1.5rem 0;
 }
 
+/* Styling for payment arrow if needed in the future 
 .payment-steps-block .payment-arrow {
-  /* position: absolute;
+  position: absolute;
   right: 306px;
-  top: 0; */
-}
+  top: 0;
+} */
 .payment-steps-title {
   font-size: 24px;
   font-weight: 700;

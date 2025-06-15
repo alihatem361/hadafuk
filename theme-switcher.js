@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Insert the theme switcher HTML
   createThemeSwitcher();
 
+  // Add theme-font classes to appropriate text elements
+  addThemeClasses();
+
   const themeSwitcher = document.querySelector(".theme-switcher");
   const themeToggleBtn = document.querySelector(".theme-toggle-btn");
   const themeOptions = document.querySelectorAll(".theme-option");
@@ -12,28 +15,27 @@ document.addEventListener("DOMContentLoaded", function () {
   };
   themeToggleBtn.addEventListener("click", toggleSwitcher);
   themeToggleBtn.clickHandler = toggleSwitcher;
-
   // Theme color options
   const themes = {
     green: {
       primaryColor: "#00a98f",
-      accentColor: "#f39c12",
+      secondaryColor: "#f39c12", // Renamed from accentColor to secondaryColor
     },
     blue: {
       primaryColor: "#3498db",
-      accentColor: "#f39c12",
+      secondaryColor: "#2ecc71", // Renamed from accentColor to secondaryColor
     },
     purple: {
       primaryColor: "#9b59b6",
-      accentColor: "#f1c40f",
+      secondaryColor: "#f1c40f",
     },
     red: {
       primaryColor: "#e74c3c",
-      accentColor: "#3498db",
+      secondaryColor: "#3498db",
     },
     orange: {
-      primaryColor: "#e67e22",
-      accentColor: "#3498db",
+      primaryColor: "#E94E1B",
+      secondaryColor: "#00A099",
     },
   };
 
@@ -50,9 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Save theme preference
       localStorage.setItem("selectedTheme", themeColor);
     });
-  });
-
-  // Set theme function
+  }); // Set theme function
   function setTheme(themeColor) {
     const theme = themes[themeColor];
     if (!theme) return;
@@ -62,12 +62,21 @@ document.addEventListener("DOMContentLoaded", function () {
       theme.primaryColor
     );
     document.documentElement.style.setProperty(
-      "--accent-color",
-      theme.accentColor
+      "--secondary-color",
+      theme.secondaryColor
     );
 
-    // Update SVG colors
-    updateSvgColors(theme.primaryColor);
+    // Keep accent color for backward compatibility
+    document.documentElement.style.setProperty(
+      "--accent-color",
+      theme.secondaryColor
+    );
+
+    // Update font colors for text elements
+    updateFontColors(theme.primaryColor);
+
+    // Update SVG fill colors
+    updateSvgColors(theme.primaryColor, theme.secondaryColor);
   }
 
   // Function to create the theme switcher HTML
@@ -83,6 +92,12 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="color-preview green-preview"></div>
             <span class="theme-label">أخضر (الافتراضي)</span>
           </div>
+
+            <div class="theme-option" data-theme="orange">
+            <div class="color-preview orange-preview"></div>
+            <span class="theme-label">برتقالي</span>
+          </div>
+
           <div class="theme-option" data-theme="blue">
             <div class="color-preview blue-preview"></div>
             <span class="theme-label">أزرق</span>
@@ -95,54 +110,64 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="color-preview red-preview"></div>
             <span class="theme-label">أحمر</span>
           </div>
-          <div class="theme-option" data-theme="orange">
-            <div class="color-preview orange-preview"></div>
-            <span class="theme-label">برتقالي</span>
-          </div>
+        
         </div>
       </div>
     `;
 
     document.body.insertAdjacentHTML("beforeend", themeHTML);
-  }
-  // Function to update SVG colors
-  function updateSvgColors(primaryColor) {
-    // Apply CSS filter to SVG images instead of trying to modify SVG content directly
-    // This is more efficient and works with cross-origin SVGs
-    const themeSvgs = document.querySelectorAll(".theme-svg");
+  } // Function to update font colors
+  function updateFontColors(primaryColor) {
+    // Apply the primary color to elements with theme-font class
+    const themeFonts = document.querySelectorAll(".theme-font");
 
-    // Get the base color to calculate the filter
-    const baseColor = getComputedStyle(document.documentElement)
-      .getPropertyValue("--primary-color")
+    themeFonts.forEach((element) => {
+      element.style.color = primaryColor;
+    });
+
+    // Apply secondary colors to elements with theme-font-accent class if needed
+    const accentElements = document.querySelectorAll(".theme-font-accent");
+    const secondaryColor = getComputedStyle(document.documentElement)
+      .getPropertyValue("--secondary-color")
       .trim();
-    const filter = calculateFilter(baseColor, primaryColor);
 
-    // Apply the filter to each SVG with theme-svg class
-    themeSvgs.forEach((svg) => {
-      svg.style.filter = filter;
+    accentElements.forEach((element) => {
+      element.style.color = secondaryColor;
     });
   }
 
-  // Function to calculate CSS filter to transform one color to another
-  function calculateFilter(baseColor, targetColor) {
-    // Convert hex colors to RGB
-    const baseRGB = hexToRgb(baseColor);
-    const targetRGB = hexToRgb(targetColor);
-
-    if (!baseRGB || !targetRGB) return "";
-
-    // Simple filter calculation - can be improved for more accurate color transformation
-    const r = targetRGB.r / baseRGB.r;
-    const g = targetRGB.g / baseRGB.g;
-    const b = targetRGB.b / baseRGB.b;
-
-    // Create a CSS filter that approximates the color change
-    return `brightness(0) saturate(100%) invert(${
-      targetRGB.r / 255
-    }) sepia(${targetRGB.g / 255}) hue-rotate(${getHueRotate(baseRGB, targetRGB)}deg)`;
+  // Helper function to create a CSS filter for recoloring SVGs
+  function createColorFilter(hexColor) {
+    const rgb = hexToRgb(hexColor);
+    return `brightness(0) saturate(100%) invert(${calculateInversion(
+      rgb
+    )}) sepia(${calculateSepia(rgb)}) saturate(${calculateSaturation(rgb)}) hue-rotate(${calculateHueRotate(rgb)}deg) brightness(${calculateBrightness(rgb)})`;
   }
 
-  // Function to convert hex color to RGB
+  // Helper functions for filter calculations
+  function calculateInversion(rgb) {
+    return rgb.r / 255 > 0.5 ? 1 : 0;
+  }
+
+  function calculateSepia(rgb) {
+    return rgb.g / 255 > 0.6 ? 1 : 0.4;
+  }
+
+  function calculateSaturation(rgb) {
+    const max = Math.max(rgb.r, rgb.g, rgb.b);
+    const min = Math.min(rgb.r, rgb.g, rgb.b);
+    return max === 0 ? 0 : ((max - min) / max) * 10;
+  }
+
+  function calculateHueRotate(rgb) {
+    return (Math.atan2(rgb.g - rgb.b, rgb.r - rgb.g) * 180) / Math.PI;
+  }
+
+  function calculateBrightness(rgb) {
+    return ((rgb.r + rgb.g + rgb.b) / (255 * 3)) * 2;
+  }
+
+  // Helper function to convert hex color to RGB if needed later
   function hexToRgb(hex) {
     // Remove the # if present
     hex = hex.replace(/^#/, "");
@@ -156,44 +181,51 @@ document.addEventListener("DOMContentLoaded", function () {
     return { r, g, b };
   }
 
-  // Function to calculate hue rotation angle
-  function getHueRotate(baseRGB, targetRGB) {
-    // Calculate hue angles
-    const baseHue = rgbToHue(baseRGB.r, baseRGB.g, baseRGB.b);
-    const targetHue = rgbToHue(targetRGB.r, targetRGB.g, targetRGB.b);
+  // Function to add theme-font classes to elements that need to change color with theme
+  function addThemeClasses() {
+    // Add theme-font class to these elements (primary color)
+    const primaryFontElements = [
+      ".highlight",
+      ".header-title",
+      ".courses-title",
+      ".course-title",
+      ".course-price",
+      ".payment-steps-title",
+      ".payment-tab.active",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      ".nav-link:hover",
+      ".footer-logo-text",
+    ];
 
-    // Return the difference in hue angles
-    return (targetHue - baseHue + 360) % 360;
+    // Add theme-font-accent class to these elements (accent color)
+    const accentFontElements = [".cta-button", ".course-btn", ".payment-link"];
+
+    // Apply primary color class
+    primaryFontElements.forEach((selector) => {
+      try {
+        document.querySelectorAll(selector).forEach((element) => {
+          element.classList.add("theme-font");
+        });
+      } catch (e) {
+        console.warn(`Selector error for ${selector}:`, e);
+      }
+    });
+
+    // Apply accent color class
+    accentFontElements.forEach((selector) => {
+      try {
+        document.querySelectorAll(selector).forEach((element) => {
+          element.classList.add("theme-font-accent");
+        });
+      } catch (e) {
+        console.warn(`Selector error for ${selector}:`, e);
+      }
+    });
   }
-
-  // Function to convert RGB to hue
-  function rgbToHue(r, g, b) {
-    r /= 255;
-    g /= 255;
-    b /= 255;
-
-    const max = Math.max(r, g, b);
-    const min = Math.min(r, g, b);
-
-    let hue = 0;
-
-    if (max === min) {
-      return 0; // achromatic
-    }
-
-    const d = max - min;
-
-    if (max === r) {
-      hue = (g - b) / d + (g < b ? 6 : 0);
-    } else if (max === g) {
-      hue = (b - r) / d + 2;
-    } else {
-      hue = (r - g) / d + 4;
-    }
-
-    return hue * 60;
-  }
-
   // Load saved theme preference
   const savedTheme = localStorage.getItem("selectedTheme");
   if (savedTheme) {
@@ -204,5 +236,10 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     // Default active theme
     document.querySelector('[data-theme="green"]')?.classList.add("active");
+    // Apply default theme to font colors
+    const defaultTheme = themes["green"];
+    if (defaultTheme) {
+      updateFontColors(defaultTheme.primaryColor);
+    }
   }
 });

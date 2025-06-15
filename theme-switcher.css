@@ -112,7 +112,7 @@
 }
 
 .orange-preview {
-  background-color: #f39c12;
+  background-color: #e94e1b;
 }
 
 /* Mobile responsiveness */
@@ -196,7 +196,13 @@
   }
 }
 
-/* Handle SVG colors when theme changes */
-.theme-svg {
-  transition: filter 0.3s ease;
+/* Handle font colors when theme changes */
+.theme-font {
+  transition: color 0.3s ease;
+  color: var(--primary-color);
+}
+
+.theme-font-accent {
+  transition: color 0.3s ease;
+  color: var(--accent-color);
 }

@@ -23,4 +23,27 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 300);
     }
   });
+
+  // Add extra attribute to SVGs that should use secondary color
+  setupSvgThemeAttributes();
 });
+
+// Function to add data-theme-color attribute to SVGs that should use secondary color
+function setupSvgThemeAttributes() {
+  // Add data attributes to SVGs based on their location or purpose
+  // This allows the theme switcher to know which color to apply
+
+  // Example: Add data-theme-color="secondary" to specific SVG elements
+  // This is just an example - adjust selectors to match your actual SVGs that should use secondary color
+  const secondaryColorSvgs = [
+    document.querySelector(".blob-image"),
+    document.querySelector(".hero-background"),
+    // Add more selectors for SVGs that should use secondary color
+  ];
+
+  secondaryColorSvgs.forEach((svg) => {
+    if (svg) {
+      svg.setAttribute("data-theme-color", "secondary");
+    }
+  });
+}
