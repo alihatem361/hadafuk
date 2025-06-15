@@ -52,8 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Save theme preference
       localStorage.setItem("selectedTheme", themeColor);
     });
-  }); // Set theme function
-  function setTheme(themeColor) {
+  }); // Set theme function  function setTheme(themeColor) {
     const theme = themes[themeColor];
     if (!theme) return;
 
@@ -71,6 +70,9 @@ document.addEventListener("DOMContentLoaded", function () {
       "--accent-color",
       theme.secondaryColor
     );
+    
+    // Update courses title background with primary color
+    updateCoursesTitleBackground(theme.primaryColor);
 
     // Update font colors for text elements
     updateFontColors(theme.primaryColor);
@@ -166,7 +168,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function calculateBrightness(rgb) {
     return ((rgb.r + rgb.g + rgb.b) / (255 * 3)) * 2;
   }
-
   // Helper function to convert hex color to RGB if needed later
   function hexToRgb(hex) {
     // Remove the # if present
@@ -179,6 +180,16 @@ document.addEventListener("DOMContentLoaded", function () {
     let b = bigint & 255;
 
     return { r, g, b };
+  }
+  
+  // Function to update courses title background with the current theme color
+  function updateCoursesTitleBackground(primaryColor) {
+    // Create a dynamic SVG with the primary color
+    const hexColor = primaryColor.replace('#', '%23'); // URL encode the hash symbol
+    const svgUrl = `url("data:image/svg+xml,%3Csvg width='250' height='64' viewBox='0 0 250 64' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='250' height='64' fill='${hexColor}'/%3E%3C/svg%3E")`;
+    
+    // Set the variable
+    document.documentElement.style.setProperty('--courses-title-bg', svgUrl);
   }
 
   // Function to add theme-font classes to elements that need to change color with theme
@@ -225,8 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.warn(`Selector error for ${selector}:`, e);
       }
     });
-  }
-  // Load saved theme preference
+  }  // Load saved theme preference
   const savedTheme = localStorage.getItem("selectedTheme");
   if (savedTheme) {
     setTheme(savedTheme);
@@ -236,10 +246,11 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     // Default active theme
     document.querySelector('[data-theme="green"]')?.classList.add("active");
-    // Apply default theme to font colors
+    // Apply default theme to font colors and SVG backgrounds
     const defaultTheme = themes["green"];
     if (defaultTheme) {
       updateFontColors(defaultTheme.primaryColor);
+      updateCoursesTitleBackground(defaultTheme.primaryColor);
     }
   }
 });
