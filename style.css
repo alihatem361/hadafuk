@@ -27,8 +27,6 @@ body {
 }
 
 /* Add transitions for elements that change with theme */
-.cta-button,
-.course-btn,
 .payment-tab,
 .footer-section,
 .course-title.orange,
@@ -42,7 +40,6 @@ body {
   transition: color var(--transition-speed),
     background-color var(--transition-speed);
 }
-
 
 .hero {
   position: relative;
@@ -247,7 +244,7 @@ body {
 }
 
 .cta-button {
-  background: var(--secondary-color) !important;
+  background: var(--primary-color) !important;
   color: #fff !important;
   border: none;
   padding: 1rem 2rem;
@@ -564,8 +561,8 @@ body {
   margin-bottom: 1.1rem;
 }
 .course-btn {
-  background: #f45a0a;
-  color: #fff;
+  background: var(--primary-color) !important;
+  color: #fff !important;
   border: none;
   padding: 0.8rem 2.2rem;
   font-size: 1.1rem;
@@ -766,8 +763,8 @@ body {
   transition: color 0.2s, border 0.2s;
 }
 .payment-tab.active {
-  color: #f45a0a;
-  border-bottom: 2.5px solid #f45a0a;
+  color: var(--primary-color) !important;
+  border-bottom: 2.5px solid var(--primary-color) !important;
   font-weight: 700;
 }
 
